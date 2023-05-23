@@ -32,20 +32,14 @@ time_periods_of_datasets = ['1861-1910', '1956-2005', '2050-2099']
 extreme_event_categories = ['floodedarea', 'driedarea', 'heatwavedarea', 'cropfailedarea', 'burntarea', 'tropicalcyclonedarea']
 
 
-# =============================================================================
-# compound_events = [['floodedarea', 'burntarea'], ['floodedarea', 'heatwavedarea'], ['heatwavedarea', 'burntarea'], 
-#                    ['heatwavedarea', 'cropfailedarea'], ['driedarea', 'burntarea'], ['driedarea', 'heatwavedarea'],
-#                    ['cropfailedarea','burntarea'], ['floodedarea', 'driedarea'], ['floodedarea', 'cropfailedarea'],
-#                    ['driedarea', 'cropfailedarea'], ['heatwavedarea', 'tropicalcyclonedarea'], ['burntarea', 'tropicalcyclonedarea'],
-#                    ['floodedarea', 'tropicalcyclonedarea'], ['driedarea', 'tropicalcyclonedarea'], ['cropfailedarea', 'tropicalcyclonedarea']]
-# =============================================================================
-
-
-compound_events = [['heatwavedarea', 'burntarea']]
+compound_events = [['floodedarea', 'burntarea'], ['floodedarea', 'heatwavedarea'], ['heatwavedarea', 'burntarea'], 
+                   ['heatwavedarea', 'cropfailedarea'], ['driedarea', 'burntarea'], ['driedarea', 'heatwavedarea'],
+                   ['cropfailedarea','burntarea'], ['floodedarea', 'driedarea'], ['floodedarea', 'cropfailedarea'],
+                   ['driedarea', 'cropfailedarea'], ['heatwavedarea', 'tropicalcyclonedarea'], ['burntarea', 'tropicalcyclonedarea'],
+                   ['floodedarea', 'tropicalcyclonedarea'], ['driedarea', 'tropicalcyclonedarea'], ['cropfailedarea', 'tropicalcyclonedarea']]
 
 # list of bias-adjusted Global Climate Models available for all the Impact Models
 gcms = ['gfdl-esm2m', 'hadgem2-es', 'ipsl-cm5a-lr', 'miroc5']
-
 
 
 #%% MASK: FOR UNIFORMITY IN THE PLOTS, A MASKING WILL BE DONE ON ALL THE EXTREME EVENTS DATA TO ENSURE NaN VALUES OVER THE OCEAN. 
