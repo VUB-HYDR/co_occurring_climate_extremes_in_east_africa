@@ -12,4 +12,13 @@ This python script entails all the methods used to analyse the dataset using the
 ## Python Environment
 To ensure reproducibility of our analysis, the [env_concurrent_extremes_in_east_africa.yml](concurrent_climate_extremes_in_east_africa/env_concurrent_extremes_in_east_africa.yml) provides a clone of our python environment, with all of its packages and versions. Users should use their terminal or an Anaconda Prompt to create their environment using this env_concurrent_extremes_in_east_africa.yml.
 
+## Authors
+Derrick Muheki
 
+Axel A.J.Deijns
+
+Emanuele Bevacqua
+
+Gabriele Messori
+
+Jakob Zscheischler
