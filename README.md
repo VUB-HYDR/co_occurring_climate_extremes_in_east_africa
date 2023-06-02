@@ -10,7 +10,7 @@ This python script enntails all the functions used in this analysis. Users shoul
 This python script entails all the methods used to analyse the dataset using the functions within funcs.py. Users shoud ensure that the main.py, funcs.py nad the dataset are all within the same directory before running this script.
 
 ## Python Environment
-To ensure reproducibility of our analysis, the [env_concurrent_extremes_in_east_africa.yml](concurrent_climate_extremes_in_east_africa/env_concurrent_extremes_in_east_africa.yml) provides a clone of our python environment, with all of its packages and versions. Users should use their terminal or an Anaconda Prompt to create their environment using this env_concurrent_extremes_in_east_africa.yml.
+To ensure reproducibility of our analysis, the [env_concurrent_extremes_in_east_africa.yml](https://github.com/VUB-HYDR/concurrent_climate_extremes_in_east_africa/blob/bf4d63de1dd4d25ec89bee0f250c1262d7774ee7/env_concurrent_extremes_in_east_africa.yml) provides a clone of our python environment, with all of its packages and versions. Users should use their terminal or an Anaconda Prompt to create their environment using this env_concurrent_extremes_in_east_africa.yml.
 
 ## Authors
 Derrick Muheki
