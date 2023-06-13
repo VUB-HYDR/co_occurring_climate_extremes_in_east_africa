@@ -1,5 +1,5 @@
 # concurrent_climate_extremes_in_east_africa
-Here we analyse the influence of climate change on the frequency, spatial distribution and dependence of concurrent extreme events in East Africa. 
+Here we analyse the changes in the frequency, spatial distribution and dependence of concurrent extreme events in East Africa under different climate change scenarios. 
 
 ## Python Scripts
 This repository includes two python scripts used in this anaylsis, namely:
