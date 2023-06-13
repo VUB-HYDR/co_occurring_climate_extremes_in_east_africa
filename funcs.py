@@ -624,6 +624,10 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     # Plot probability of occurrence of compound extreme events per location with the extent of the East African Region; Specified as (left, right, bottom, right)
     plt.imshow(average_probability_of_occurrence_of_compound_events_across_the_gcms, origin = 'upper' , extent=(18.25, 54.75, -12.75, 23.75), cmap = plt.cm.get_cmap('viridis', 10))
     
+    # Average probability across the entire region (1 value for the whole region per scenario)
+    average_probability_across_the_entire_region = average_probability_of_occurrence_of_compound_events_across_the_gcms.mean()
+    plt.gcf().text(0.25,0.01,'Average Probability across the entire region = {}'.format(round(average_probability_across_the_entire_region.item(), 3)), fontsize = 8)
+    
     # Text outside the plot to display the time period & scenario (top-right) and the two Global Impact Models used (bottom left)
     plt.gcf().text(0.252,0.9,'{}, {}'.format(time_period, scenario), fontsize = 8)
     
@@ -1384,7 +1388,7 @@ def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timese
     
     plt.gcf().text(0.12,0.03,'{}'.format(gcm), fontsize= 10)
     
-    plt.tight_layout()
+    #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
@@ -1784,7 +1788,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
         # driving GCM noted on the plot
         plt.gcf().text(0.12,0.03,'considering all impact models driven by {}'.format(gcms[gcm]), fontsize= 10)
         
-        plt.tight_layout()
+        #plt.tight_layout()
         
         # Change this directory to save the plots to your desired directory
         #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
@@ -2180,7 +2184,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
     # incase you require a title on the plot
     #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
     
-    plt.tight_layout()
+    #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
