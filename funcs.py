@@ -641,7 +641,7 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average probability of joint occurrence of {} and {} under the {} scenario considering all impact models and their respective driving GCMs.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average probability of joint occurrence of {} and {} under the {} scenario considering all impact models and their respective driving GCMs.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
      
     plt.show()
     #plt.close()
@@ -817,7 +817,7 @@ def plot_average_maximum_no_of_years_with_consecutive_compound_events_considerin
 
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average maximum number of years with concurrent {} and {} demonstrated by multi model ensembles under the {} scenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average maximum number of years with concurrent {} and {} demonstrated by multi model ensembles under the {} scenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -1390,7 +1390,7 @@ def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timese
     #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
     
     plt.show()
     plot_of_correlation = plt.show()   
@@ -1790,7 +1790,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
         #plt.tight_layout()
         
         # Change this directory to save the plots to your desired directory
-        plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
+        #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
         
         plt.show()
         plot_of_correlation = plt.show()   
@@ -2186,7 +2186,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
     #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
     
     plt.show()
     plot_of_correlation = plt.show()   
@@ -2405,7 +2405,7 @@ def plot_probability_ratio_of_occurrence_of_an_extreme_event_considering_all_gcm
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -2607,7 +2607,7 @@ def plot_probability_ratio_of_occurrence_of_two_extreme_events_assuming_dependen
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -3077,7 +3077,7 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     #fig.suptitle('Variation in the fraction of region affected by compound events \n in 50-year periods demonstrated by multi-impact model ensembles \n', y = 1.05)
     
     # Change this directory to save the plots to your desired directory
-    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Variation in the fraction of region affected by compound events in 50-year periods demonstrated by multi-impact model ensembles.pdf', dpi = 300)
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Variation in the fraction of region affected by compound events in 50-year periods demonstrated by multi-impact model ensembles.pdf', dpi = 300)
     
     plt.show()
     
