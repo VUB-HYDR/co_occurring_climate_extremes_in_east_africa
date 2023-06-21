@@ -578,7 +578,6 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     ----------
     occurrence of compound extreme event : Xarray data array (boolean with true for locations with the occurrence of both events within the same year)
     event_1_name, event_2_name : String (Extreme Events)
-    gcm : String (Driving GCM)
     time_period: String
     scenario: String
     
@@ -622,7 +621,7 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     #grid.right_labels= False #Removes the grid labels from the right of the plot
     
     # Plot probability of occurrence of compound extreme events per location with the extent of the East African Region; Specified as (left, right, bottom, right)
-    plt.imshow(average_probability_of_occurrence_of_compound_events_across_the_gcms, origin = 'upper' , extent=(18.25, 54.75, -12.75, 23.75), cmap = plt.cm.get_cmap('viridis', 10))
+    plt.imshow(average_probability_of_occurrence_of_compound_events_across_the_gcms, origin = 'upper' , extent=(18.25, 54.75, -12.75, 23.75), cmap = plt.cm.get_cmap('viridis', 12))
     
     # Average probability across the entire region (1 value for the whole region per scenario)
     average_probability_across_the_entire_region = average_probability_of_occurrence_of_compound_events_across_the_gcms.mean()
@@ -636,13 +635,13 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     
     # discrete color bar legend
     #bounds = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
-    plt.colorbar( orientation = 'vertical').set_label(label = 'Probability of joint occurrence', size = 11) #Plots the legend color bar
-    plt.clim(0,1)
+    plt.colorbar( orientation = 'vertical', extend = 'max').set_label(label = 'Probability of joint occurrence', size = 11) #Plots the legend color bar
+    plt.clim(0,0.6)
     plt.xticks(fontsize=8, color = 'dimgrey') # color and size of longitude labels
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average probability of joint occurrence of {} and {} under the {} scenario considering all impact models and their respective driving GCMs.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average probability of joint occurrence of {} and {} under the {} scenario considering all impact models and their respective driving GCMs.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
      
     plt.show()
     #plt.close()
@@ -818,7 +817,7 @@ def plot_average_maximum_no_of_years_with_consecutive_compound_events_considerin
 
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average maximum number of years with concurrent {} and {} demonstrated by multi model ensembles under the {} scenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average maximum number of years with concurrent {} and {} demonstrated by multi model ensembles under the {} scenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -1318,7 +1317,7 @@ def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timese
     
     average_pearson_rcp60 = mean(all_values_of_pearson_rcp60)  # Mean Pearson's correlataion coefficient  
     
-    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', markersize= 6)]
+    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
     
     axl.legend(handles = legend_elements, loc = 'center', fontsize = 8, frameon=False)
     
@@ -1376,7 +1375,7 @@ def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timese
             
         #axl.legend(['early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}' ,'present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}','rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', 'rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', 'rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.3f}'], fontsize='small')
         
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.3f}', markersize =6)]
+        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
         
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
     
@@ -1391,7 +1390,7 @@ def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timese
     #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
     
     plt.show()
     plot_of_correlation = plt.show()   
@@ -1704,7 +1703,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
         ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max()+9)
         #ax.set_aspect('auto')
         
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', markersize= 6)]
+        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
         
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 8, frameon=False)
         
@@ -1774,7 +1773,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
             ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max()+9)
             #ax.set_aspect('auto')
             
-            legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.3f}', markersize =6)]
+            legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
             
             axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
         
@@ -1791,7 +1790,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
         #plt.tight_layout()
         
         # Change this directory to save the plots to your desired directory
-        #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
+        plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
         
         plt.show()
         plot_of_correlation = plt.show()   
@@ -2107,7 +2106,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
     ax.set_ylim(-2, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max()+9)
     #ax.set_aspect('auto')
     
-    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
+    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
     
     axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
     
@@ -2176,7 +2175,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
         ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max()+9)
         #ax.set_aspect('auto')
                 
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
+        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
         
         
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
@@ -2187,7 +2186,7 @@ def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_po
     #plt.tight_layout()
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
     
     plt.show()
     plot_of_correlation = plt.show()   
@@ -2406,7 +2405,7 @@ def plot_probability_ratio_of_occurrence_of_an_extreme_event_considering_all_gcm
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -2608,7 +2607,7 @@ def plot_probability_ratio_of_occurrence_of_two_extreme_events_assuming_dependen
     plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -2807,7 +2806,7 @@ def boxplot_comparing_gcms(all_gcms_timeseries_50_years_of_joint_occurrence_of_c
         ax.set(ylabel = 'Percentage of area')
         ax.label_outer() # avoid repetition of y axis label on all sub plots
     
-    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='early industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='historical'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='rcp2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='rcp6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='rcp8.5')]
+    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='Early-industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='Present day'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='RCP2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='RCP6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='RCP8.5')]
    
     plt.legend(handles = legend_elements, loc = 'upper left', bbox_to_anchor = (1,1), fontsize = 10)
     
@@ -2840,7 +2839,7 @@ def all_boxplots(all_compound_event_combinations_and_gcms_timeseries_50_years_of
     outer = gridspec.GridSpec(5,3, wspace =0.3, hspace=0.25) #wspace is horizontal space between the subplots and hspace is the vertical space between the subplots
     
     
-    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='early industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='historical'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='rcp2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='rcp6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='rcp8.5')]
+    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='Early-industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='Present day'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='RCP2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='RCP6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='RCP8.5')]
     fig.legend(handles = legend_elements, bbox_to_anchor = (0.23,0.88), fontsize = 5) 
 
     colors = [(0.996, 0.89, 0.569), (0.996, 0.769, 0.31), (0.996, 0.6, 0.001), (0.851, 0.373, 0.0549), (0.6, 0.204, 0.016)] # color palette
@@ -3070,7 +3069,7 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     
     
     
-    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='early industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='present day'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='rcp2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='rcp6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='rcp8.5')]
+    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='Early-industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='Present day'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='RCP2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='RCP6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='RCP8.5')]
     fig.legend(handles = legend_elements, bbox_to_anchor = (0.90,0.88), fontsize = 10, frameon=False)
 
     
@@ -3078,7 +3077,7 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     #fig.suptitle('Variation in the fraction of region affected by compound events \n in 50-year periods demonstrated by multi-impact model ensembles \n', y = 1.05)
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Variation in the fraction of region affected by compound events in 50-year periods demonstrated by multi-impact model ensembles.pdf', dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Variation in the fraction of region affected by compound events in 50-year periods demonstrated by multi-impact model ensembles.pdf', dpi = 300)
     
     plt.show()
     
