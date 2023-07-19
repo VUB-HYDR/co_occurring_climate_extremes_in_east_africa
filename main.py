@@ -38,8 +38,11 @@ compound_events = [['floodedarea', 'burntarea'], ['floodedarea', 'heatwavedarea'
                    ['driedarea', 'cropfailedarea'], ['heatwavedarea', 'tropicalcyclonedarea'], ['burntarea', 'tropicalcyclonedarea'],
                    ['floodedarea', 'tropicalcyclonedarea'], ['driedarea', 'tropicalcyclonedarea'], ['cropfailedarea', 'tropicalcyclonedarea']]
 
+
+
 # list of bias-adjusted Global Climate Models available for all the Impact Models
 gcms = ['gfdl-esm2m', 'hadgem2-es', 'ipsl-cm5a-lr', 'miroc5']
+
 
 
 #%% MASK: FOR UNIFORMITY IN THE PLOTS, A MASKING WILL BE DONE ON ALL THE EXTREME EVENTS DATA TO ENSURE NaN VALUES OVER THE OCEAN. 
@@ -524,7 +527,7 @@ for compound_event in compound_events:
         
         # BIVARIATE DISTRUBUTION
         # Plot the pearson correlation coefficient considering fraction of total pixels affected by extreme event 1 and 2 in the same year
-        plot_of_pearson_correlation_coefficient = fn.plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name, gcm)
+        plot_of_pearson_correlation_coefficient = fn.plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name, gcm)
         
         
         # append list of bivariate distributions for all gcms to one list
@@ -673,10 +676,10 @@ for compound_event in compound_events:
     
     # BIVARIATE DISTRIBUTION CONSIDERING ALL GCMs
     
-    bivariate_plot_considering_all_impact_models_per_gcm = fn.plot_correlation_with_pearson_correlation_coefficient_considering_scatter_points_from_all_impact_models(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name, gcms)
+    bivariate_plot_considering_all_impact_models_per_gcm = fn.plot_correlation_with_spearmans_rank__correlation_coefficient_considering_scatter_points_from_all_impact_models(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name, gcms)
     
     #considering all impact models and all their driving GCMs per extreme event    
-    combined_bivariate_plot_considering_all_impact_models_and_all_their_driving_gcms = fn.plot_correlation_with_pearson_correlation_coefficient_considering_scatter_points_from_all_impact_models_and_all_gcms(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name)
+    combined_bivariate_plot_considering_all_impact_models_and_all_their_driving_gcms = fn.plot_correlation_with_spearmans_rank_correlation_coefficient_considering_scatter_points_from_all_impact_models_and_all_gcms(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, extreme_event_1_name, extreme_event_2_name)
     
     
     # BOX PLOT COMPARISON OF OCCURRENCE PER EXTREME EVENT PAIR
