@@ -3,7 +3,7 @@ Here we analyse the changes in the frequency, spatial distribution and dependenc
 
 ## Python Scripts
 This repository includes two python scripts used in this anaylsis, namely:
-### 1. [funcs.py](https://github.com/VUB-HYDR/concurrent_climate_extremes_in_east_africa/blob/8a322d247ee549efb340933b45f555c8d1ac0c5f/funcs.py)
+### 1. [funcs.py](https://github.com/VUB-HYDR/concurrent_climate_extremes_in_east_africa/blob/96943eb9ec1335c823b160af81f04d49a07d4fca/funcs.py)
 This python script enntails all the functions used in this analysis. Users should first run this script, before running the main.py.
 
 ### 2. [main.py](https://github.com/VUB-HYDR/concurrent_climate_extremes_in_east_africa/blob/8a322d247ee549efb340933b45f555c8d1ac0c5f/main.py)
