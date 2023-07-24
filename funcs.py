@@ -1071,337 +1071,9 @@ def set_of_timeseries_of_occurrence_of_two_extreme_events(timeseries_of_occurren
     return set_of_timeseries_of_occurrence_of_two_extreme_events
 
      
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient
-# =============================================================================
-# def plot_correlation_with_pearson_correlation_coefficient(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name, gcm):
-#     """
-# 
-#     Parameters
-#     ----------
-#     pearson_correlation_coefficient_of_extreme_events : Tuple (containing pearson correlation coefficent - confidence ellipse patches)
-# 
-#     Returns
-#     -------
-#     Plot showing the correleation of two extreme events using the Pearson correlation coefficient.
-# 
-#     """
-#     
-#     # Setting up 4 subplots as axis objects using Gridspec:
-#     gs = gridspec.GridSpec(2, 2, width_ratios=[3,1], height_ratios = [1,3])
-#     # Add space between scatter plot and KDE plots to accomodate axis labels
-#     gs.update(hspace =0.1, wspace =0.1)
-#     
-#     # Set background canvas color 
-#     fig = plt.figure(figsize = [8,6])
-#     fig.patch.set_facecolor('white')
-#     
-#     ax = plt.subplot(gs[1,0]) # Scatter plot area and axis range
-#     ax.set_xlabel('Percentage of area affected by {}'.format(event_1_name))
-#     ax.set_ylabel('Percentage of area affected by {}'.format(event_2_name))
-#     
-#     axu = plt.subplot(gs[0,0], sharex = ax) # Upper KDE plot area
-#     axu.get_xaxis().set_visible(False) # Hide the tick marks and spines
-#     axu.get_yaxis().set_visible(False)
-#     axu.spines['right'].set_visible(False)
-#     axu.spines['top'].set_visible(False)
-#     axu.spines['left'].set_visible(False)
-#     
-#     
-#     axr = plt.subplot(gs[1,1], sharey = ax) # Right KDE plot area
-#     axr.get_xaxis().set_visible(False) # Hide the tick marks and spines
-#     axr.get_yaxis().set_visible(False)
-#     axr.spines['right'].set_visible(False)
-#     axr.spines['top'].set_visible(False)
-#     axr.spines['bottom'].set_visible(False)
-#         
-#     axl = plt.subplot(gs[0,1]) # Legend plot area
-#     axl.axis('off') # Hide tick marks and spines
-#     
-#        
-#     
-#     # historical plot from 1861 until 1910 
-#     all_values_of_pearson_from_1861_until_1910 = []
-#     for i in range(len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[0])):
-#                   
-#         timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[0][i][0].squeeze()) 
-#         timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[0][i][1].squeeze())  
-# 
-#         if (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)).values <= np.array([0.000001]):
-#             continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses. 
-#         
-#         pearson_from_1861_until_1910 = confidence_ellipse(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910, ax, facecolor='none', edgecolor=(0.996, 0.89, 0.569))
-#         all_values_of_pearson_from_1861_until_1910.append(pearson_from_1861_until_1910)
-# 
-#         # Stacking the two extreme event datasets 
-#         combined_data= np.vstack([timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910])
-#         
-#         # Create a kernel density estimate
-#         kde_combined_data = stats.gaussian_kde(combined_data)
-#         
-#         # Define the grid for the contour plot
-#         xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-#         ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-#         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-#         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-#         
-#         # Specify the number of contour lines
-#         num_contours = 4
-#         
-#         # Generate evenly spaced contour levels based on the data
-#         contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-#         # Plot the contours
-#         ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
-#        
-#       
-#         # marginal distribution using KDE method
-#         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-#         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
-#         axu.plot(xx, kde(xx), color=(0.996, 0.89, 0.569))
-#         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-#         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.min(), timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.max(), 1000)
-#         axr.plot(kde(yy), yy, color = (0.996, 0.89, 0.569))
-#             
-#     
-#     average_pearson_from_1861_until_1910 = mean(all_values_of_pearson_from_1861_until_1910) # Mean Pearson's correlataion coefficient
-# 
-# 
-#     # historical plot from 1956 until 2005
-#     all_values_of_pearson_from_1956_until_2005 = []
-#     for i in range(len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[1])):
-#             
-#         timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[1][i][0].squeeze())
-#         timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[1][i][1].squeeze())
-#         
-#         if  (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)).values <= np.array([0.000001]):
-#             continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-#         
-#         
-#         pearson_from_1956_until_2005 = confidence_ellipse(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005, ax, facecolor='none', edgecolor=(0.996, 0.769, 0.31))
-#         all_values_of_pearson_from_1956_until_2005.append(pearson_from_1956_until_2005)
-#         
-#         
-#         # Stacking the two extreme event datasets 
-#         combined_data= np.vstack([timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005])
-#         
-#         # Create a kernel density estimate
-#         kde_combined_data = stats.gaussian_kde(combined_data)
-#         
-#         # Define the grid for the contour plot
-#         xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-#         ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-#         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-#         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-#         
-#         # Specify the number of contour lines
-#         num_contours = 4
-#         
-#         # Generate evenly spaced contour levels based on the data
-#         contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-#         # Plot the contours
-#         ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
-#         
-# 
-#         #Points showing fraction affected per extreme event
-#         #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005, s=3, c='black')
-#         
-#         # distribution
-#         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-#         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.min(), timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.max(), 1000)
-#         axu.plot(xx, kde(xx), color=(0.996, 0.769, 0.31))
-#         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-#         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.min(), timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.max(), 1000)
-#         axr.plot(kde(yy), yy, color = (0.996, 0.769, 0.31))
-#         
-#      
-#     average_pearson_from_1956_until_2005 = mean(all_values_of_pearson_from_1956_until_2005) # Mean Pearson's correlataion coefficient
-#     
-#     
-#     # projected scenarios....from 2050 until 2099
-#     # rcp26 plot
-#     all_values_of_pearson_rcp26 = []
-#     for i in range(len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[2])):
-#     
-#         timeseries_of_occurrence_of_extreme_event_1_rcp26 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[2][i][0].squeeze())
-#         timeseries_of_occurrence_of_extreme_event_2_rcp26 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[2][i][1].squeeze())
-#         
-#         if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp26)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp26)).values <= np.array([0.000001]):
-#             continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-#         
-#         pearson_rcp26 = confidence_ellipse(timeseries_of_occurrence_of_extreme_event_1_rcp26, timeseries_of_occurrence_of_extreme_event_2_rcp26, ax, facecolor='none', edgecolor=(0.996, 0.6, 0.001))
-#         all_values_of_pearson_rcp26.append(pearson_rcp26)
-#         
-#         # Stacking the two extreme event datasets 
-#         combined_data= np.vstack([timeseries_of_occurrence_of_extreme_event_1_rcp26, timeseries_of_occurrence_of_extreme_event_2_rcp26])
-#         
-#         # Create a kernel density estimate
-#         kde_combined_data = stats.gaussian_kde(combined_data)
-#         
-#         # Define the grid for the contour plot
-#         xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-#         ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-#         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-#         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-#         
-#         # Specify the number of contour lines
-#         num_contours = 4
-#         
-#         # Generate evenly spaced contour levels based on the data
-#         contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-#         # Plot the contours
-#         ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
-#         
-#         
-#         #Points showing fraction affected per extreme event
-#         #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_rcp26, timeseries_of_occurrence_of_extreme_event_2_rcp26, s=3, c='navy')
-#         
-#         # distribution
-#         
-#         
-#         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp26)
-#         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp26.min(), timeseries_of_occurrence_of_extreme_event_1_rcp26.max(), 1000)
-#         axu.plot(xx, kde(xx), color=(0.996, 0.6, 0.001))
-#         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp26)
-#         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp26.min(), timeseries_of_occurrence_of_extreme_event_2_rcp26.max(), 1000)
-#         axr.plot(kde(yy), yy, color = (0.996, 0.6, 0.001))
-#         
-#     
-#     average_pearson_rcp26 = mean(all_values_of_pearson_rcp26) # Mean Pearson's correlataion coefficient
-#         
-#     
-#     # rcp60 plot
-#     all_values_of_pearson_rcp60 = []
-#     for i in range(len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[3])):
-#     
-#         timeseries_of_occurrence_of_extreme_event_1_rcp60 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[3][i][0].squeeze())
-#         timeseries_of_occurrence_of_extreme_event_2_rcp60 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[3][i][1].squeeze())
-#         
-#         if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp60)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp60)).values <= np.array([0.000001]):
-#             continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-#         
-#         
-#         pearson_rcp60 = confidence_ellipse(timeseries_of_occurrence_of_extreme_event_1_rcp60, timeseries_of_occurrence_of_extreme_event_2_rcp60, ax, facecolor='none', edgecolor=(0.851, 0.373, 0.0549))
-#         all_values_of_pearson_rcp60.append(pearson_rcp60)
-#         
-#         # Stacking the two extreme event datasets 
-#         combined_data= np.vstack([timeseries_of_occurrence_of_extreme_event_1_rcp60, timeseries_of_occurrence_of_extreme_event_2_rcp60])
-#         
-#         # Create a kernel density estimate
-#         kde_combined_data = stats.gaussian_kde(combined_data)
-#         
-#         # Define the grid for the contour plot
-#         xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-#         ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-#         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-#         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-#         
-#         # Specify the number of contour lines
-#         num_contours = 4
-#         
-#         # Generate evenly spaced contour levels based on the data
-#         contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-#         # Plot the contours
-#         ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
-#           
-#         
-#         #Points showing fraction affected per extreme event 
-#         #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_rcp60, timeseries_of_occurrence_of_extreme_event_2_rcp60, s=3, c='red')
-#         
-#         # distribution
-#         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp60)
-#         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp60.min(), timeseries_of_occurrence_of_extreme_event_1_rcp60.max(), 1000)
-#         axu.plot(xx, kde(xx), color=(0.851, 0.373, 0.0549))
-#         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp60)
-#         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp60.min(), timeseries_of_occurrence_of_extreme_event_2_rcp60.max(), 1000)
-#         axr.plot(kde(yy), yy, color = (0.851, 0.373, 0.0549))
-#         
-#         
-#         #axl.legend(['early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}' ,'present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}','rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', 'rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}'], fontsize='small')
-#     
-#     average_pearson_rcp60 = mean(all_values_of_pearson_rcp60)  # Mean Pearson's correlataion coefficient  
-#     
-#     legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
-#     
-#     axl.legend(handles = legend_elements, loc = 'center', fontsize = 8, frameon=False)
-#     
-#     #if len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events) == 5:
-#     if len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[4]) != 0:
-#         
-#         # rcp85 plot
-#         all_values_of_pearson_rcp85 = []
-#         for i in range(len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[4])):
-#         
-#             timeseries_of_occurrence_of_extreme_event_1_rcp85 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[4][i][0].squeeze())
-#             timeseries_of_occurrence_of_extreme_event_2_rcp85 = (gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events[4][i][1].squeeze())
-#             
-#             if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp85)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp85)).values <= np.array([0.000001]):
-#                 continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-#             
-#             pearson_rcp85 = confidence_ellipse(timeseries_of_occurrence_of_extreme_event_1_rcp85, timeseries_of_occurrence_of_extreme_event_2_rcp85, ax, facecolor='none', edgecolor=(0.6, 0.204, 0.016))
-#             all_values_of_pearson_rcp85.append(pearson_rcp85)
-#             
-#             # Stacking the two extreme event datasets 
-#             combined_data= np.vstack([timeseries_of_occurrence_of_extreme_event_1_rcp85, timeseries_of_occurrence_of_extreme_event_2_rcp85])
-#             
-#             # Create a kernel density estimate
-#             kde_combined_data = stats.gaussian_kde(combined_data)
-#             
-#             # Define the grid for the contour plot
-#             xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-#             ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-#             xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-#             zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-#             
-#             # Specify the number of contour lines
-#             num_contours = 4
-#             
-#             # Generate evenly spaced contour levels based on the data
-#             contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-#             # Plot the contours
-#             ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
-#            
-#             
-#             #Points showing fraction affected per extreme event
-#             #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_rcp85, timeseries_of_occurrence_of_extreme_event_2_rcp85, s=3, c='darkred')
-#             
-#             # distribution          
-#             kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp85)
-#             xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp85.min(), timeseries_of_occurrence_of_extreme_event_1_rcp85.max(), 1000)
-#             axu.plot(xx, kde(xx), color=(0.6, 0.204, 0.016))
-#             kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp85)
-#             yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp85.min(), timeseries_of_occurrence_of_extreme_event_2_rcp85.max(), 1000)
-#             axr.plot(kde(yy), yy, color = (0.6, 0.204, 0.016))
-# 
-#             
-#         #if len(all_values_of_pearson_rcp85) 
-#         average_pearson_rcp85 = mean(all_values_of_pearson_rcp85)    
-#             
-#         #axl.legend(['early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}' ,'present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}','rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', 'rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', 'rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.3f}'], fontsize='small')
-#         
-#         legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
-#         
-#         axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
-#     
-#     # incase you want the title on the plot
-#     #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
-#     
-#     
-#     #plt.tight_layout()
-#     
-#     plt.gcf().text(0.12,0.03,'{}'.format(gcm), fontsize= 10)
-#     
-#     #plt.tight_layout()
-#     
-#     # Change this directory to save the plots to your desired directory
-#     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering area of region affected yearly by {} and {} showing results from all impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcm), dpi = 300, bbox_inches = 'tight')
-#     
-#     plt.show()
-#     plot_of_correlation = plt.show()   
-# 
-#     return plot_of_correlation         
-#                                                 
-# =============================================================================
 
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient
+
+#%% Function for plotting the correleation of two extreme events using the Spearmans rank correlation coefficient
 def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name, gcm):
     """
 
@@ -1477,13 +1149,9 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 4
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEE491')
        
       
         # marginal distribution using KDE method
@@ -1529,14 +1197,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 4
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
-        
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEC44F')
+             
 
         #Points showing fraction affected per extreme event
         #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005, s=3, c='black')
@@ -1584,13 +1248,9 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 4
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FE9900')
         
         
         #Points showing fraction affected per extreme event
@@ -1641,13 +1301,9 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 4
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#D95F0E')
           
         
         #Points showing fraction affected per extreme event 
@@ -1702,15 +1358,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
             xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
             zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
             
-            # Specify the number of contour lines
-            num_contours = 4
-            
-            # Generate evenly spaced contour levels based on the data
-            contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
             # Plot the contours
-            ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
-           
-            
+            percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+            ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#993300')
+              
             #Points showing fraction affected per extreme event
             #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_rcp85, timeseries_of_occurrence_of_extreme_event_2_rcp85, s=3, c='darkred')
             
@@ -1733,7 +1384,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
     
     # incase you want the title on the plot
-    #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
+    #axu.set_title('Spearmans rank correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
     
     
     #plt.tight_layout()
@@ -1751,408 +1402,8 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
     return plot_of_correlation         
                                                 
 
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient
-def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_points_from_all_impact_models(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name, gcms):
-    
-    """
 
-    Parameters
-    ----------
-    all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events : Tuple 
-    event_1_name: String
-    event_2_name: String
-    gcms: List
-
-    Returns
-    -------
-    Plot showing the correleation of two extreme events using the Pearson correlation coefficient.
-
-    """
-    
-    
-    for gcm in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events)):
-        
-        
-        # Setting up 4 subplots as axis objects using Gridspec:
-        gs = gridspec.GridSpec(2, 2, width_ratios=[3,1], height_ratios = [1,3])
-        # Add space between scatter plot and KDE plots to accomodate axis labels
-        gs.update(hspace =0.1, wspace =0.1)
-        
-        # Set background canvas color 
-        fig = plt.figure(figsize = [8,6])
-        fig.patch.set_facecolor('white')
-        
-        ax = plt.subplot(gs[1,0]) # Scatter plot area and axis range
-        ax.set_xlabel('Percentage of area affected by {}'.format(event_1_name))
-        ax.set_ylabel('Percentage of area affected by {}'.format(event_2_name))
-        
-        axu = plt.subplot(gs[0,0], sharex = ax) # Upper KDE plot area
-        axu.get_xaxis().set_visible(False) # Hide the tick marks and spines
-        axu.get_yaxis().set_visible(False)
-        axu.spines['right'].set_visible(False)
-        axu.spines['top'].set_visible(False)
-        axu.spines['left'].set_visible(False)
-        
-        
-        axr = plt.subplot(gs[1,1], sharey = ax) # Right KDE plot area
-        axr.get_xaxis().set_visible(False) # Hide the tick marks and spines
-        axr.get_yaxis().set_visible(False)
-        axr.spines['right'].set_visible(False)
-        axr.spines['top'].set_visible(False)
-        axr.spines['bottom'].set_visible(False)
-            
-        axl = plt.subplot(gs[0,1]) # Legend plot area
-        axl.axis('off') # Hide tick marks and spines
-        
-        
-        
-        # historical plot from 1861 until 1910 
-        all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = []
-        all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = []
-        all_values_of_pearson_from_1861_until_1910 = []
-        for i in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][0])):
-                      
-            timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][0][i][0]
-            timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][0][i][1]
-            
-            if (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)).values <= np.array([0.000001]):
-                continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses. 
-            
-            all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.append(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.squeeze())
-            all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.append(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.squeeze())
-            
-                   
-            
-        # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-        full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-        full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-        
-        pearson_from_1861_until_1910 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910, ax, facecolor='none', edgecolor=(0.996, 0.89, 0.569))
-        #all_values_of_pearson_from_1861_until_1910.append(pearson_from_1861_until_1910)
-        
-        # Stacking the two extreme event datasets 
-        combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910])
-        
-        # Create a kernel density estimate
-        kde_combined_data = stats.gaussian_kde(combined_data)
-        
-        # Define the grid for the contour plot
-        xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-        ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-        xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-        zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-        
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-        # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
-        
-        
-        # marginal distribution using KDE method    
-        kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-        xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.89, 0.569))
-        kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-        yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.89, 0.569))
-        
-        
-        # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-        fig.text(0.05, 2.2, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.89, 0.569))
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-        fig.text(1.5, 0.20, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.89, 0.569)) 
-         
-  
-        # historical plot from 1956 until 2005
-        all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = []
-        all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = []
-        all_values_of_pearson_from_1956_until_2005 = []
-        for i in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][1])):
-                
-            timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][1][i][0]
-            timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][1][i][1]
-            
-            if  (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)).values <= np.array([0.000001]):
-                continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-            
-            all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.append(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.squeeze())
-            all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.append(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.squeeze())
-            
-        
-        # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-        full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-        full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-        
-        pearson_from_1956_until_2005 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005, ax, facecolor='none', edgecolor=(0.996, 0.769, 0.31))
-        
-        
-        # Stacking the two extreme event datasets 
-        combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005])
-        
-        # Create a kernel density estimate
-        kde_combined_data = stats.gaussian_kde(combined_data)
-        
-        # Define the grid for the contour plot
-        xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-        ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-        xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-        zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-        
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-        # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
-        
-        
-        # marginal distribution using KDE method 
-        kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-        xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.769, 0.31))
-        kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-        yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.769, 0.31))
-             
-        # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-        fig.text(0.05, 2.0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.769, 0.31))
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-        fig.text(1.5, 0.15, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.769, 0.31)) 
-        
-        
-        # projected scenarios....from 2050 until 2099
-        # rcp26 plot
-        all_timeseries_of_occurrence_of_extreme_event_1_rcp26 = []
-        all_timeseries_of_occurrence_of_extreme_event_2_rcp26 = []
-        
-        all_values_of_pearson_rcp26 = []
-        for i in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][2])):
-        
-            timeseries_of_occurrence_of_extreme_event_1_rcp26 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][2][i][0]
-            timeseries_of_occurrence_of_extreme_event_2_rcp26 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][2][i][1]
-            
-            if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp26)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp26)).values <= np.array([0.000001]):
-                continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-            
-            all_timeseries_of_occurrence_of_extreme_event_1_rcp26.append(timeseries_of_occurrence_of_extreme_event_1_rcp26.squeeze())
-            all_timeseries_of_occurrence_of_extreme_event_2_rcp26.append(timeseries_of_occurrence_of_extreme_event_2_rcp26.squeeze())
-            
-
-        
-        # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-        full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-        full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-        
-        pearson_rcp26 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26, ax, facecolor='none', edgecolor=(0.996, 0.6, 0.001))
-        
-        # Stacking the two extreme event datasets 
-        combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26])
-        
-        # Create a kernel density estimate
-        kde_combined_data = stats.gaussian_kde(combined_data)
-        
-        # Define the grid for the contour plot
-        xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-        ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-        xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-        zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-        
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-        # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
-        
-
-        # marginal distribution using KDE method
-        kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-        xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.6, 0.001))
-        kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-        yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.6, 0.001))
-        
-        # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-        fig.text(0.05, 1.8, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.6, 0.001))
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-        fig.text(1.5, 0.10, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.6, 0.001)) 
-            
-        
-        # rcp60 plot
-        all_timeseries_of_occurrence_of_extreme_event_1_rcp60 = []
-        all_timeseries_of_occurrence_of_extreme_event_2_rcp60 = []
-        
-        all_values_of_pearson_rcp60 = []
-        for i in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][3])):
-        
-            timeseries_of_occurrence_of_extreme_event_1_rcp60 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][3][i][0]
-            timeseries_of_occurrence_of_extreme_event_2_rcp60 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][3][i][1]
-            
-            if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp60)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp60)).values <= np.array([0.000001]):
-                continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-            
-            all_timeseries_of_occurrence_of_extreme_event_1_rcp60.append(timeseries_of_occurrence_of_extreme_event_1_rcp60.squeeze())
-            all_timeseries_of_occurrence_of_extreme_event_2_rcp60.append(timeseries_of_occurrence_of_extreme_event_2_rcp60.squeeze())
-            
-
-        full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-        full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-        
-        pearson_rcp60 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60, ax, facecolor='none', edgecolor=(0.851, 0.373, 0.0549))
-        
-        # Stacking the two extreme event datasets 
-        combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60])
-        
-        # Create a kernel density estimate
-        kde_combined_data = stats.gaussian_kde(combined_data)
-        
-        # Define the grid for the contour plot
-        xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-        ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-        xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-        zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-        
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-        # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
-       
-        
-        # marginal distribution using KDE method
-        kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-        xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.851, 0.373, 0.0549))
-        kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-        yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.851, 0.373, 0.0549))
-        
-        # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-        fig.text(0.05, 1.6, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.851, 0.373, 0.0549))
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-        fig.text(1.5, 0.05, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.851, 0.373, 0.0549)) 
-        
-        ax.set_xlim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max()+9)
-        ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max()+9)
-        #ax.set_aspect('auto')
-        
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
-        
-        axl.legend(handles = legend_elements, loc = 'center', fontsize = 8, frameon=False)
-        
-        #if len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events) == 5:
-        if len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][4]) != 0:
-            
-            # rcp85 plot
-            all_timeseries_of_occurrence_of_extreme_event_1_rcp85 = []
-            all_timeseries_of_occurrence_of_extreme_event_2_rcp85 = []
-            
-            all_values_of_pearson_rcp85 = []
-            for i in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][4])):
-            
-                timeseries_of_occurrence_of_extreme_event_1_rcp85 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][4][i][0]
-                timeseries_of_occurrence_of_extreme_event_2_rcp85 = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm][4][i][1]
-                
-                if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp85)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp85)).values <= np.array([0.000001]):
-                    continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-                
-                all_timeseries_of_occurrence_of_extreme_event_1_rcp85.append(timeseries_of_occurrence_of_extreme_event_1_rcp85.squeeze())
-                all_timeseries_of_occurrence_of_extreme_event_2_rcp85.append(timeseries_of_occurrence_of_extreme_event_2_rcp85.squeeze())
-                
-            
-            full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-            full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-            
-            pearson_rcp85 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85, ax, facecolor='none', edgecolor=(0.6, 0.204, 0.016))
-           
-            # Stacking the two extreme event datasets 
-            combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85])
-            
-            # Create a kernel density estimate
-            kde_combined_data = stats.gaussian_kde(combined_data)
-            
-            # Define the grid for the contour plot
-            xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-            ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-            xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-            zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-            
-            # Specify the number of contour lines
-            num_contours = 7
-            
-            # Generate evenly spaced contour levels based on the data
-            contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-            # Plot the contours
-            ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
-           
-           
-            # marginal distribution using KDE method
-            kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-            xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max(), 1000)
-            axu.plot(xx, kde(xx), color=(0.6, 0.204, 0.016))
-            kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-            yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max(), 1000)
-            axr.plot(kde(yy), yy, color = (0.6, 0.204, 0.016))
-                
-            # Calculate the mean and variance of the individual extreme events 
-            mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-            variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-            fig.text(0.05, 1.4, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.6, 0.204, 0.016))
-            mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-            variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-            fig.text(1.5, 0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.6, 0.204, 0.016))
-
-            ax.set_xlim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max()+9)
-            ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max()+9)
-            #ax.set_aspect('auto')
-            
-            legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
-            
-            axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
-        
-        
-        # incase you want the title on the plot
-        #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
-        
-
-        #plt.tight_layout()
-        
-        # driving GCM noted on the plot
-        plt.gcf().text(0.12,0.03,'considering all impact models driven by {}'.format(gcms[gcm]), fontsize= 10)
-        
-        #plt.tight_layout()
-        
-        # Change this directory to save the plots to your desired directory
-        #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering areea of region affected yearly by {} and {} considering impact models driven by {}.pdf'.format(event_1_name, event_2_name, gcms[gcm]), dpi = 300, bbox_inches = 'tight')
-        
-        plt.show()
-        plot_of_correlation = plt.show()   
-    
-    
-    return plot_of_correlation         
-                                
-
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient
+#%% Function for plotting the correleation of two extreme events using the Spearmans rank correlation coefficient
 def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_scatter_points_from_all_impact_models(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name, gcms):
     
     """
@@ -2246,13 +1497,9 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEE491')
         
         
         # marginal distribution using KDE method    
@@ -2310,13 +1557,9 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEC44F')
         
         
         # marginal distribution using KDE method 
@@ -2377,14 +1620,10 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
-        
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FE9900')
+  
 
         # marginal distribution using KDE method
         kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
@@ -2440,13 +1679,9 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
         xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 7
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#D95F0E')
        
         
         # marginal distribution using KDE method
@@ -2513,13 +1748,9 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
             xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
             zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
             
-            # Specify the number of contour lines
-            num_contours = 7
-            
-            # Generate evenly spaced contour levels based on the data
-            contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
             # Plot the contours
-            ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
+            percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+            ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#993300')
            
            
             # marginal distribution using KDE method
@@ -2548,7 +1779,7 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
         
         
         # incase you want the title on the plot
-        #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
+        #axu.set_title('Spearmans rank correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
         
 
         #plt.tight_layout()
@@ -2569,404 +1800,7 @@ def plot_correlation_with_spearmans_rank__correlation_coefficient_considering_sc
                                 
     
 
-    
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient using all the GCM data 
-def plot_correlation_with_pearson_correlation_coefficient_considering_scatter_points_from_all_impact_models_and_all_gcms(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name):
-    
-    """
-    Parameters
-    -------
-    all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events: Tuple 
-    event_1_name: String
-    event_2_name: String
-
-    Returns
-    -------
-    Plot showing the correleation of two extreme events using the Pearson correlation coefficient considering all impact models and all their driving GCMs.
-
-    """
-     
-    
-    all_data_considering_all_gcms = [[],[],[],[],[]] #To enable sorting all the data from all the GCMS into their respective scenarios: i.e early industrial, present day, rcp 2.6, ...etc
-    for gcm in range(len(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events)):
-        gcm_data = all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events[gcm]
-        for scenario in range(len(gcm_data)):
-            data_per_gcm = gcm_data[scenario]
-            all_data_considering_all_gcms[scenario].extend(data_per_gcm)
-    
-    # Setting up 4 subplots as axis objects using Gridspec:
-    gs = gridspec.GridSpec(2, 2, width_ratios=[3,1], height_ratios = [1,3])
-    # Add space between scatter plot and KDE plots to accomodate axis labels
-    gs.update(hspace =0.1, wspace =0.1)
-    
-    # Set background canvas color 
-    fig = plt.figure(figsize = [8,6])
-    fig.patch.set_facecolor('white')
-    
-    ax = plt.subplot(gs[1,0]) # Scatter plot area and axis range
-    ax.set_xlabel('Percentage of area affected by {}'.format(event_1_name))
-    ax.set_ylabel('Percentage of area affected by {}'.format(event_2_name))
-    
-    axu = plt.subplot(gs[0,0], sharex = ax) # Upper KDE plot area
-    axu.get_xaxis().set_visible(False) # Hide the tick marks and spines
-    axu.get_yaxis().set_visible(False)
-    axu.spines['right'].set_visible(False)
-    axu.spines['top'].set_visible(False)
-    axu.spines['left'].set_visible(False)
-    
-    
-    axr = plt.subplot(gs[1,1], sharey = ax) # Right KDE plot area
-    axr.get_xaxis().set_visible(False) # Hide the tick marks and spines
-    axr.get_yaxis().set_visible(False)
-    axr.spines['right'].set_visible(False)
-    axr.spines['top'].set_visible(False)
-    axr.spines['bottom'].set_visible(False)
-        
-    axl = plt.subplot(gs[0,1]) # Legend plot area
-    axl.axis('off') # Hide tick marks and spines
-    
-    
-    
-    # historical plot from 1861 until 1910 
-    all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = []
-    all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = []
-      
-    for compound_event in range(len(all_data_considering_all_gcms[0])): 
-        timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = all_data_considering_all_gcms[0][compound_event][0]
-        timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = all_data_considering_all_gcms[0][compound_event][1]
-        
-        if (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)).values <= np.array([0.000001]):
-            continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses. 
-        
-        all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.append(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.squeeze())
-        all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.append(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.squeeze())
-        
-        
-    # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-    full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-    full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-    
-    pearson_from_1861_until_1910 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910, ax, facecolor='none', edgecolor=(0.996, 0.89, 0.569))
-
-    
-    # Stacking the two extreme event datasets 
-    combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910])
-    
-    # Create a kernel density estimate
-    kde_combined_data = stats.gaussian_kde(combined_data)
-    
-    # Define the grid for the contour plot
-    xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-    ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-    xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-    zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-    
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-    # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
-
-    
-    # marginal distribution using KDE method    
-    kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-    xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.89, 0.569))
-    kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-    yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.89, 0.569))
-    
-    # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-    fig.text(0.05, 2.2, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.89, 0.569))
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-    fig.text(1.5, 0.20, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.89, 0.569)) 
-      
-    
-
-    # historical plot from 1956 until 2005
-    all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = []
-    all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = []
-
-    for compound_event in range(len(all_data_considering_all_gcms[1])): 
-        timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = all_data_considering_all_gcms[1][compound_event][0]
-        timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = all_data_considering_all_gcms[1][compound_event][1]
-    
-        if  (np.var(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)).values <= np.array([0.000001]):
-            continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-        
-        all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.append(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.squeeze())
-        all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.append(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.squeeze())
-        
-
-    # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-    full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-    full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-    
-    # To calculate pearsons correlation coefficient 
-    pearson_from_1956_until_2005 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005, ax, facecolor='none', edgecolor=(0.996, 0.769, 0.31))
-    
-    
-    # Stacking the two extreme event datasets 
-    combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005, full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005])
-    
-    # Create a kernel density estimate
-    kde_combined_data = stats.gaussian_kde(combined_data)
-    
-    # Define the grid for the contour plot
-    xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-    ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-    xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-    zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-    
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-    # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
-    
-        
-    # marginal distribution using KDE method 
-    kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-    xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.769, 0.31))
-    kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-    yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.769, 0.31))
- 
-    # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-    fig.text(0.05, 2.0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.769, 0.31))
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-    fig.text(1.5, 0.15, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.769, 0.31)) 
-    
-    
-    # projected scenarios....from 2050 until 2099
-    # rcp26 plot
-    all_timeseries_of_occurrence_of_extreme_event_1_rcp26 = []
-    all_timeseries_of_occurrence_of_extreme_event_2_rcp26 = []
-
-    for compound_event in range(len(all_data_considering_all_gcms[2])): 
-        timeseries_of_occurrence_of_extreme_event_1_rcp26 = all_data_considering_all_gcms[2][compound_event][0]
-        timeseries_of_occurrence_of_extreme_event_2_rcp26 = all_data_considering_all_gcms[2][compound_event][1]
-        
-        if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp26)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp26)).values <= np.array([0.000001]):
-            continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-        
-        all_timeseries_of_occurrence_of_extreme_event_1_rcp26.append(timeseries_of_occurrence_of_extreme_event_1_rcp26.squeeze())
-        all_timeseries_of_occurrence_of_extreme_event_2_rcp26.append(timeseries_of_occurrence_of_extreme_event_2_rcp26.squeeze())
-        
-    
-    # Append full list of all timeseries into one 1D array representing the full scatter point data of all impact models driven by the same GCM. **Also known as pulling data    
-    full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-    full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-    
-    # To calculate pearsons correlation coefficient
-    pearson_rcp26 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26, ax, facecolor='none', edgecolor=(0.996, 0.6, 0.001))
-
-    # Stacking the two extreme event datasets 
-    combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26])
-    
-    # Create a kernel density estimate
-    kde_combined_data = stats.gaussian_kde(combined_data)
-    
-    # Define the grid for the contour plot
-    xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-    ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-    xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
-    zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-    
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-    # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
-    
-    
-    # marginal distribution using KDE method
-    kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-    xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.6, 0.001))
-    kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-    yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.6, 0.001))
-    
-    #average_pearson_rcp26 = mean(all_values_of_pearson_rcp26) # Mean Pearson's correlataion coefficient
-        
-    # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-    fig.text(0.05, 1.8, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.6, 0.001))
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-    fig.text(1.5, 0.10, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.6, 0.001)) 
-    
-    
-    # rcp60 plot
-    all_timeseries_of_occurrence_of_extreme_event_1_rcp60 = []
-    all_timeseries_of_occurrence_of_extreme_event_2_rcp60 = [] 
-
-    for compound_event in range(len(all_data_considering_all_gcms[3])): 
-        timeseries_of_occurrence_of_extreme_event_1_rcp60 = all_data_considering_all_gcms[3][compound_event][0]
-        timeseries_of_occurrence_of_extreme_event_2_rcp60 = all_data_considering_all_gcms[3][compound_event][1]
-    
-        if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp60)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp60)).values <= np.array([0.000001]):
-            continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-        
-        all_timeseries_of_occurrence_of_extreme_event_1_rcp60.append(timeseries_of_occurrence_of_extreme_event_1_rcp60.squeeze())
-        all_timeseries_of_occurrence_of_extreme_event_2_rcp60.append(timeseries_of_occurrence_of_extreme_event_2_rcp60.squeeze())
-        
-        
-    full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-    full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-    
-    # To calculate pearsons corelation coefficient
-    pearson_rcp60 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60, ax, facecolor='none', edgecolor=(0.85, 0.37, 0.05))
-   
-    
-    # Stacking the two extreme event datasets 
-    combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60])
-    
-    # Create a kernel density estimate
-    kde_combined_data = stats.gaussian_kde(combined_data)
-    
-    # Define the grid for the contour plot
-    xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-    ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-    xi, yi = np.mgrid[xmin-4:xmax+10:200j, ymin-5:ymax+10:200j]
-    zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-    
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-    # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
-   
-    
-   
-    # marginal distribution using KDE method
-    kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-    xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.851, 0.373, 0.0549))
-    kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-    yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.851, 0.373, 0.0549))
-        
-
-    # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-    fig.text(0.05, 1.6, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.851, 0.373, 0.0549))
-    mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-    variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-    fig.text(1.5, 0.05, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.851, 0.373, 0.0549)) 
-    
-    ax.set_xlim(-2, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max()+9)
-    ax.set_ylim(-2, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max()+9)
-    #ax.set_aspect('auto')
-    
-    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6)]
-    
-    axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
-    
-    #if len(gcm_full_set_of_timeseries_of_occurrence_of_two_extreme_events) == 5:
-    if len(all_data_considering_all_gcms[4]) != 0: # checking for an empty list, incase of crop failure data that doesnt have the rcp 8.5 scenario
-        
-        # rcp85 plot
-        all_timeseries_of_occurrence_of_extreme_event_1_rcp85 = []
-        all_timeseries_of_occurrence_of_extreme_event_2_rcp85 = []
-        
-        for compound_event in range(len(all_data_considering_all_gcms[4])): 
-            timeseries_of_occurrence_of_extreme_event_1_rcp85 = all_data_considering_all_gcms[4][compound_event][0]
-            timeseries_of_occurrence_of_extreme_event_2_rcp85 = all_data_considering_all_gcms[4][compound_event][1]
-        
-            if  (np.var(timeseries_of_occurrence_of_extreme_event_1_rcp85)).values <= np.array([0.000001]) or (np.var(timeseries_of_occurrence_of_extreme_event_2_rcp85)).values <= np.array([0.000001]):
-                continue  # avoid datasets without variation in time in the bivariate distribution plot and plotting of the ellipses
-            
-            all_timeseries_of_occurrence_of_extreme_event_1_rcp85.append(timeseries_of_occurrence_of_extreme_event_1_rcp85.squeeze())
-            all_timeseries_of_occurrence_of_extreme_event_2_rcp85.append(timeseries_of_occurrence_of_extreme_event_2_rcp85.squeeze())
-            
-        
-        full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-        full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.concatenate(all_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-        
-        # To calculate the pearsons correlation coefficient
-        pearson_rcp85 = confidence_ellipse(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85, ax, facecolor='none', edgecolor=(0.60, 0.20, 0.016))
-        
-        # Stacking the two extreme event datasets 
-        combined_data= np.vstack([full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85])
-        
-        # Create a kernel density estimate
-        kde_combined_data = stats.gaussian_kde(combined_data)
-        
-        # Define the grid for the contour plot
-        xmin, xmax = np.min(combined_data[0]), np.max(combined_data[0])
-        ymin, ymax = np.min(combined_data[1]), np.max(combined_data[1])
-        xi, yi = np.mgrid[xmin-4:xmax+10:200j, ymin-5:ymax+10:200j]
-        zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
-        
-        # Specify the number of contour lines
-        num_contours = 10
-        
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-        # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
-        
-       
-        # marginal distribution using KDE method 
-        kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-        xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.6, 0.204, 0.016))
-        kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-        yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.6, 0.204, 0.016))
-        
-        # Calculate the mean and variance of the individual extreme events 
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-        fig.text(0.05, 1.4, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.6, 0.204, 0.016))
-        mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-        variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-        fig.text(1.5, 0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.6, 0.204, 0.016))
-
-        ax.set_xlim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max()+9)
-        ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max()+9)
-        #ax.set_aspect('auto')
-                
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.2f}', markersize =6)]
-        
-        
-        axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
-    
-    # incase you require a title on the plot
-    #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
-    
-    #plt.tight_layout()
-    
-    # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Pearson correlation coefficient considering fraction of region affected yearly by {} and {} considering all impact models and their driving GCMs.pdf'.format(event_1_name, event_2_name), dpi = 300, bbox_inches = 'tight')
-    
-    plt.show()
-    plot_of_correlation = plt.show()   
-
-    return plot_of_correlation
-
-
-
-#%% Function for plotting the correleation of two extreme events using the Pearson correlation coefficient using all the GCM data 
+#%% Function for plotting the correleation of two extreme events using the Spearman's rank correlation coefficient using all the GCM data 
 def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_scatter_points_from_all_impact_models_and_all_gcms(all_gcms_full_set_of_timeseries_of_occurrence_of_two_extreme_events, event_1_name, event_2_name):
     
     """
@@ -3059,15 +1893,12 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
     zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
     
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
-    # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEE491')
 
+    # Plot the contours 
+    percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEE491')
     
+  
     # marginal distribution using KDE method    
     kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
     xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
@@ -3123,13 +1954,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
     zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
     
-    # Specify the number of contour lines
-    num_contours = 10
     
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
     # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FEC44F')
+    percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEC44F')
     
         
     # marginal distribution using KDE method 
@@ -3188,13 +2016,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     xi, yi = np.mgrid[xmin-5:xmax+10:200j, ymin-5:ymax+10:200j]
     zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
     
-    # Specify the number of contour lines
-    num_contours = 10
-    
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
+   
     # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#FE9900')
+    percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FE9900')
     
     
     # marginal distribution using KDE method
@@ -3253,14 +2078,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     xi, yi = np.mgrid[xmin-4:xmax+10:200j, ymin-5:ymax+10:200j]
     zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
     
-    # Specify the number of contour lines
-    num_contours = 10
     
-    # Generate evenly spaced contour levels based on the data
-    contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
     # Plot the contours
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#D95F0E')
-   
+    percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#D95F0E')
     
    
     # marginal distribution using KDE method
@@ -3327,14 +2148,12 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
         xi, yi = np.mgrid[xmin-4:xmax+10:200j, ymin-5:ymax+10:200j]
         zi = kde_combined_data(np.vstack([xi.flatten(), yi.flatten()]))
         
-        # Specify the number of contour lines
-        num_contours = 10
         
-        # Generate evenly spaced contour levels based on the data
-        contour_levels = np.linspace(np.min(zi), np.max(zi), num=num_contours)
         # Plot the contours
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = contour_levels[1:2], linestyles = 'dashed', colors='#993300')
+        percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
+        ax.contour(xi, yi, zi.reshape(yi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#993300')
         
+    
        
         # marginal distribution using KDE method 
         kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
@@ -3362,7 +2181,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
     
     # incase you require a title on the plot
-    #axu.set_title('Pearson correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
+    #axu.set_title('Spearmans rank correlation coefficient considering fraction of region affected yearly by \n {} and {} \n '.format(event_1_name, event_2_name),fontsize=11)
     
     #plt.tight_layout()
     

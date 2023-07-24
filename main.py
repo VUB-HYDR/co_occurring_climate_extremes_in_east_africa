@@ -39,7 +39,6 @@ compound_events = [['floodedarea', 'burntarea'], ['floodedarea', 'heatwavedarea'
                    ['floodedarea', 'tropicalcyclonedarea'], ['driedarea', 'tropicalcyclonedarea'], ['cropfailedarea', 'tropicalcyclonedarea']]
 
 
-
 # list of bias-adjusted Global Climate Models available for all the Impact Models
 gcms = ['gfdl-esm2m', 'hadgem2-es', 'ipsl-cm5a-lr', 'miroc5']
 
