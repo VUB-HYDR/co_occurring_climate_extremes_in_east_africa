@@ -103,7 +103,7 @@ def extreme_event(extreme_event_data):
 
     """
     
-    extreme_event = xr.where(extreme_event_data>0.005, 1, extreme_event_data) #returns 1 where extreme event was recorded in that location during that year
+    extreme_event = xr.where(extreme_event_data>0.005, 1, (xr.where(np.isnan(extreme_event_data), np.nan, 0))) #returns 1 where extreme event was recorded in that location during that year
     
     return extreme_event
 
@@ -638,8 +638,8 @@ def plot_average_probability_of_occurrence_of_compound_events(average_probabilit
     #bounds = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
     plt.colorbar( orientation = 'vertical', extend = 'max').set_label(label = 'Probability of joint occurrence', size = 11) #Plots the legend color bar
     plt.clim(0,0.6)
-    plt.xticks(fontsize=8, color = 'dimgrey') # color and size of longitude labels
-    plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
+    plt.xticks(fontsize=11, color = 'black') # color and size of longitude labels
+    plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Average probability of joint occurrence of {} and {} under the {} scenario considering all impact models and their respective driving GCMs.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
@@ -811,10 +811,10 @@ def plot_average_maximum_no_of_years_with_consecutive_compound_events_considerin
     # discrete color bar legend
     #bounds = [0,5,10,15,20,25,30]
     
-    plt.colorbar(orientation = 'vertical', extend = 'max').set_label(label = 'Number of years', size = 10) #Plots the legend color bar
+    plt.colorbar(orientation = 'vertical', extend = 'max').set_label(label = 'Number of years', size = 11) #Plots the legend color bar
     plt.clim(0,30)
-    plt.xticks(fontsize=8, color = 'dimgrey') # color and size of longitude labels
-    plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
+    plt.xticks(fontsize=11, color = 'black') # color and size of longitude labels
+    plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
 
     
     # Change this directory to save the plots to your desired directory
@@ -2399,8 +2399,8 @@ def plot_probability_ratio_of_occurrence_of_an_extreme_event_considering_all_gcm
     colorbar.set_label(label = 'Probability Ratio', size = 11) #Plots the legend color bar
     
     plt.clim(0,10)
-    plt.xticks(fontsize=8, color = 'dimgrey') # color and size of longitude labels
-    plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
+    plt.xticks(fontsize=11, color = 'black') # color and size of longitude labels
+    plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
@@ -2598,11 +2598,11 @@ def plot_probability_ratio_of_occurrence_of_two_extreme_events_assuming_dependen
     
     #Plots the legend color bar
     colorbar = plt.colorbar(cbar, orientation = 'vertical', extend='both', extendfrac= 'auto', ticks=boundaries, format=formatter)
-    colorbar.set_label(label = 'Probability Ratio', size = 14)
+    colorbar.set_label(label = 'Probability Ratio', size = 11)
     
  
-    plt.xticks(fontsize=8, color = 'dimgrey') # color and size of longitude labels
-    plt.yticks(fontsize=8, color = 'dimgrey') # color and size of latitude labels
+    plt.xticks(fontsize=11, color = 'black') # color and size of longitude labels
+    plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
     #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
