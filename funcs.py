@@ -1151,16 +1151,16 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         
         # Plot the contours
         percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEE491')
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#3399FF')
        
       
         # marginal distribution using KDE method
         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.89, 0.569))
+        axu.plot(xx, kde(xx), color=(0.2, 0.6, 1))
         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.min(), timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.89, 0.569))
+        axr.plot(kde(yy), yy, color = (0.2, 0.6, 1))
             
     
     average_spearmans_rank_correlation_coefficient_from_1861_until_1910 = mean(all_values_of_spearmans_rank_correlation_coefficient_from_1861_until_1910) # Mean correlataion coefficient
@@ -1199,7 +1199,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         
         # Plot the contours
         percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEC44F')
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#333399')
              
 
         #Points showing fraction affected per extreme event
@@ -1208,10 +1208,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         # distribution
         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.min(), timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.769, 0.31))
+        axu.plot(xx, kde(xx), color=(0.2, 0.2, 0.6))
         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.min(), timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.769, 0.31))
+        axr.plot(kde(yy), yy, color = (0.2, 0.2, 0.6))
         
      
     average_spearmans_rank_correlation_coefficient_from_1956_until_2005 = mean(all_values_of_spearmans_rank_correlation_coefficient_from_1956_until_2005) # Mean correlataion coefficient
@@ -1250,7 +1250,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         
         # Plot the contours
         percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FE9900')
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FF9900')
         
         
         #Points showing fraction affected per extreme event
@@ -1261,10 +1261,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         
         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp26)
         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp26.min(), timeseries_of_occurrence_of_extreme_event_1_rcp26.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.996, 0.6, 0.001))
+        axu.plot(xx, kde(xx), color=(1, 0.6, 0))
         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp26)
         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp26.min(), timeseries_of_occurrence_of_extreme_event_2_rcp26.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.996, 0.6, 0.001))
+        axr.plot(kde(yy), yy, color = (1, 0.6, 0))
         
     
     average_spearmans_rank_correlation_coefficient_rcp26 = mean(all_values_of_spearmans_rank_correlation_coefficient_rcp26) # Mean correlataion coefficient
@@ -1303,7 +1303,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         
         # Plot the contours
         percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#D95F0E')
+        ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#CC0000')
           
         
         #Points showing fraction affected per extreme event 
@@ -1312,17 +1312,17 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
         # distribution
         kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp60)
         xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp60.min(), timeseries_of_occurrence_of_extreme_event_1_rcp60.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.851, 0.373, 0.0549))
+        axu.plot(xx, kde(xx), color=(0.8, 0, 0))
         kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp60)
         yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp60.min(), timeseries_of_occurrence_of_extreme_event_2_rcp60.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.851, 0.373, 0.0549))
+        axr.plot(kde(yy), yy, color = (0.8, 0, 0))
         
         
         #axl.legend(['early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}' ,'present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}','rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', 'rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}'], fontsize='small')
     
     average_spearmans_rank_correlation_coefficient_rcp60 = mean(all_values_of_spearmans_rank_correlation_coefficient_rcp60)  # Mean correlataion coefficient  
     
-    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6)]
+    legend_elements = [Line2D([0], [0], marker ='o', color= (0.2, 0.6, 1), markerfacecolor=(0.2, 0.6, 1), label= 'Early-industrial: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.2, 0.2, 0.6), markerfacecolor=(0.2, 0.2, 0.6), label='Present day: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (1, 0.6, 0), markerfacecolor=(1, 0.6, 0), label='RCP2.6: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.8, 0, 0), markerfacecolor=(0.8, 0, 0), label='RCP6.0: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6)]
     
     axl.legend(handles = legend_elements, loc = 'center', fontsize = 8, frameon=False)
     
@@ -1360,7 +1360,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
             
             # Plot the contours
             percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-            ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#993300')
+            ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#660000')
               
             #Points showing fraction affected per extreme event
             #ax.scatter(timeseries_of_occurrence_of_extreme_event_1_rcp85, timeseries_of_occurrence_of_extreme_event_2_rcp85, s=3, c='darkred')
@@ -1368,10 +1368,10 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
             # distribution          
             kde = stats.gaussian_kde(timeseries_of_occurrence_of_extreme_event_1_rcp85)
             xx = np.linspace(timeseries_of_occurrence_of_extreme_event_1_rcp85.min(), timeseries_of_occurrence_of_extreme_event_1_rcp85.max(), 1000)
-            axu.plot(xx, kde(xx), color=(0.6, 0.204, 0.016))
+            axu.plot(xx, kde(xx), color=(0.4, 0, 0))
             kde = stats. gaussian_kde(timeseries_of_occurrence_of_extreme_event_2_rcp85)
             yy = np.linspace(timeseries_of_occurrence_of_extreme_event_2_rcp85.min(), timeseries_of_occurrence_of_extreme_event_2_rcp85.max(), 1000)
-            axr.plot(kde(yy), yy, color = (0.6, 0.204, 0.016))
+            axr.plot(kde(yy), yy, color = (0.4, 0, 0))
 
             
         #if len(all_values_of_pearson_rcp85) 
@@ -1379,7 +1379,7 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient(gcm_full_set_of
             
         #axl.legend(['early industrial: ' +'\u03C1'+ f'= {pearson_from_1861_until_1910:.3f}' ,'present-day: ' +'\u03C1'+ f'= {pearson_from_1956_until_2005:.3f}','rcp2.6: ' +'\u03C1'+ f'= {pearson_rcp26:.3f}', 'rcp6.0: ' +'\u03C1'+ f'= {pearson_rcp60:.3f}', 'rcp8.5: ' +'\u03C1'+ f'= {pearson_rcp85:.3f}'], fontsize='small')
         
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp85:.2f}', markersize =6)]
+        legend_elements = [Line2D([0], [0], marker ='o', color= (0.2, 0.6, 1), markerfacecolor=(0.2, 0.6, 1), label= 'Early-industrial: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.2, 0.2, 0.6), markerfacecolor=(0.2, 0.2, 0.6), label='Present day: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (1, 0.6, 0), markerfacecolor=(1, 0.6, 0), label='RCP2.6: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.8, 0, 0), markerfacecolor=(0.8, 0, 0), label='RCP6.0: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.4, 0, 0), markerfacecolor=(0.4, 0, 0), label='RCP8.5: ' +'\u03C1'+ f'= {average_spearmans_rank_correlation_coefficient_rcp85:.2f}', markersize =6)]
         
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 9, frameon=False)
     
@@ -1896,24 +1896,24 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
 
     # Plot the contours 
     percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEE491')
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#3399FF')
     
   
     # marginal distribution using KDE method    
     kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
     xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.89, 0.569))
+    axu.plot(xx, kde(xx), color=(0.2, 0.6, 1))
     kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
     yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.89, 0.569))
+    axr.plot(kde(yy), yy, color = (0.2, 0.6, 1))
     
     # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910)
-    fig.text(0.05, 2.2, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.89, 0.569))
+    fig.text(0.05, 2.2, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1861_until_1910:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.2, 0.6, 1))
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910)
-    fig.text(1.5, 0.20, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.89, 0.569)) 
+    fig.text(1.5, 0.20, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1861_until_1910:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.2, 0.6, 1)) 
       
     
 
@@ -1957,24 +1957,24 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     
     # Plot the contours
     percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FEC44F')
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#333399')
     
         
     # marginal distribution using KDE method 
     kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
     xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.769, 0.31))
+    axu.plot(xx, kde(xx), color=(0.2, 0.2, 0.6))
     kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
     yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.769, 0.31))
+    axr.plot(kde(yy), yy, color = (0.2, 0.2, 0.6))
  
     # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005)
-    fig.text(0.05, 2.0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.769, 0.31))
+    fig.text(0.05, 2.0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_from_1956_until_2005:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.2, 0.2, 0.6))
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005)
-    fig.text(1.5, 0.15, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.769, 0.31)) 
+    fig.text(1.5, 0.15, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_from_1956_until_2005:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.2, 0.2, 0.6)) 
     
     
     # projected scenarios....from 2050 until 2099
@@ -2019,26 +2019,26 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
    
     # Plot the contours
     percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FE9900')
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#FF9900')
     
     
     # marginal distribution using KDE method
     kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
     xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.996, 0.6, 0.001))
+    axu.plot(xx, kde(xx), color=(1, 0.6, 0))
     kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
     yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.996, 0.6, 0.001))
+    axr.plot(kde(yy), yy, color = (1, 0.6, 0))
     
     #average_pearson_rcp26 = mean(all_values_of_pearson_rcp26) # Mean Pearson's correlataion coefficient
         
     # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26)
-    fig.text(0.05, 1.8, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.996, 0.6, 0.001))
+    fig.text(0.05, 1.8, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp26:.2f}", ha='left', va='top', transform=axu.transAxes, color= (1, 0.6, 0))
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26)
-    fig.text(1.5, 0.10, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.996, 0.6, 0.001)) 
+    fig.text(1.5, 0.10, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp26:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (1, 0.6, 0)) 
     
     
     # rcp60 plot
@@ -2081,31 +2081,31 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
     
     # Plot the contours
     percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#D95F0E')
+    ax.contour(xi, yi, zi.reshape(xi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#CC0000')
     
    
     # marginal distribution using KDE method
     kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
     xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max(), 1000)
-    axu.plot(xx, kde(xx), color=(0.851, 0.373, 0.0549))
+    axu.plot(xx, kde(xx), color=(0.8, 0, 0))
     kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
     yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max(), 1000)
-    axr.plot(kde(yy), yy, color = (0.851, 0.373, 0.0549))
+    axr.plot(kde(yy), yy, color = (0.8, 0, 0))
         
 
     # Calculate the mean and variance of the individual extreme events and plot the values across the PDFs
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60)
-    fig.text(0.05, 1.6, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.851, 0.373, 0.0549))
+    fig.text(0.05, 1.6, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.8, 0, 0))
     mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
     variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60)
-    fig.text(1.5, 0.05, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.851, 0.373, 0.0549)) 
+    fig.text(1.5, 0.05, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.8, 0, 0)) 
     
     ax.set_xlim(-2, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp60.max()+9)
     ax.set_ylim(-2, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp60.max()+9)
     #ax.set_aspect('auto')
     
-    legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6)]
+    legend_elements = [Line2D([0], [0], marker ='o', color= (0.2, 0.6, 1), markerfacecolor=(0.2, 0.6, 1), label= 'Early-industrial: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.2, 0.2, 0.6), markerfacecolor=(0.2, 0.2, 0.6), label='Present day: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (1, 0.6, 0), markerfacecolor=(1, 0.6, 0), label='RCP2.6: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.8, 0, 0), markerfacecolor=(0.8, 0, 0), label='RCP6.0: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6)]
     
     axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
     
@@ -2151,31 +2151,31 @@ def plot_correlation_with_spearmans_rank_correlation_coefficient_considering_sca
         
         # Plot the contours
         percentile_68 = np.percentile(zi, 68) # This contour line will enclose approximately 68% of the values of the data in zi, allowing you to visualize the region by representing observations within one standard deviation (σ) to either side of the mean (μ). 
-        ax.contour(xi, yi, zi.reshape(yi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#993300')
+        ax.contour(xi, yi, zi.reshape(yi.shape), levels = [percentile_68], linestyles = 'dashed', colors='#660000')
         
     
        
         # marginal distribution using KDE method 
         kde = stats.gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
         xx = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max(), 1000)
-        axu.plot(xx, kde(xx), color=(0.6, 0.204, 0.016))
+        axu.plot(xx, kde(xx), color=(0.4, 0, 0))
         kde = stats. gaussian_kde(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
         yy = np.linspace(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.min(), full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max(), 1000)
-        axr.plot(kde(yy), yy, color = (0.6, 0.204, 0.016))
+        axr.plot(kde(yy), yy, color = (0.4, 0, 0))
         
         # Calculate the mean and variance of the individual extreme events 
         mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
         variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85)
-        fig.text(0.05, 1.4, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.6, 0.204, 0.016))
+        fig.text(0.05, 1.4, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85:.2f}", ha='left', va='top', transform=axu.transAxes, color= (0.4, 0, 0))
         mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.mean(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
         variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85 = np.var(full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85)
-        fig.text(1.5, 0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.6, 0.204, 0.016))
+        fig.text(1.5, 0, f"x\u0304: {mean_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}, \u03C3\u00B2: {variance_full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85:.2f}", ha='left', va='bottom', transform=axr.transAxes, color= (0.4, 0, 0))
 
         ax.set_xlim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_1_rcp85.max()+9)
         ax.set_ylim(-1, full_scatter_timeseries_of_occurrence_of_extreme_event_2_rcp85.max()+9)
         #ax.set_aspect('auto')
                 
-        legend_elements = [Line2D([0], [0], marker ='o', color= (0.996, 0.89, 0.569), markerfacecolor=(0.996, 0.89, 0.569), label= 'Early-industrial: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.996, 0.769, 0.31), markerfacecolor=(0.996, 0.769, 0.31), label='Present day: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.996, 0.6, 0.001), markerfacecolor=(0.996, 0.6, 0.001), label='RCP2.6: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.851, 0.373, 0.0549), markerfacecolor=(0.851, 0.373, 0.0549), label='RCP6.0: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.6, 0.204, 0.016), markerfacecolor=(0.6, 0.204, 0.016), label='RCP8.5: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp85:.2f}', markersize =6)]
+        legend_elements = [Line2D([0], [0], marker ='o', color= (0.2, 0.6, 1), markerfacecolor=(0.2, 0.6, 1), label= 'Early-industrial: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1861_until_1910:.2f}', markersize= 6) , Line2D([0], [0], marker ='o', color= (0.2, 0.2, 0.6), markerfacecolor=(0.2, 0.2, 0.6), label='Present day: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_from_1956_until_2005:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (1, 0.6, 0), markerfacecolor=(1, 0.6, 0), label='RCP2.6: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp26:.2f}', markersize = 6), Line2D([0], [0], marker ='o', color= (0.8, 0, 0), markerfacecolor=(0.8, 0, 0), label='RCP6.0: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp60:.2f}', markersize= 6), Line2D([0], [0], marker ='o', color= (0.4, 0, 0), markerfacecolor=(0.4, 0, 0), label='RCP8.5: ' +'\u03C1'+ f'= {spearmans_rank_correlation_coefficient_rcp85:.2f}', markersize =6)]
         
         
         axl.legend(handles = legend_elements, loc = 'center', fontsize = 10, frameon=False)
@@ -2403,7 +2403,7 @@ def plot_probability_ratio_of_occurrence_of_an_extreme_event_considering_all_gcm
     plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/PR of Occurrence of {} asssuming the change in joint occurrence with {} is due to changes only in {} considering {} as the future scenario.pdf'.format(event_name, second_event_name, event_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -2605,7 +2605,7 @@ def plot_probability_ratio_of_occurrence_of_two_extreme_events_assuming_dependen
     plt.yticks(fontsize=11, color = 'black') # color and size of latitude labels
     
     # Change this directory to save the plots to your desired directory
-    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
+    plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Probability Ratio of Joint Occurrence of {} and {} assuming only change in their dependence considering {} as the future secenario.pdf'.format(event_1_name, event_2_name, scenario), dpi = 300)
     
     plt.show()
     #plt.close()
@@ -2968,7 +2968,7 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     axes = graph.subplots(sharey =True) # to share the same y-axis
     
     
-    colors = [(0.996, 0.89, 0.569), (0.996, 0.769, 0.31), (0.996, 0.6, 0.001), (0.851, 0.373, 0.0549), (0.6, 0.204, 0.016)] # color palette
+    colors = [(0.2, 0.6, 1), (0.2, 0.2, 0.6), (1, 0.6, 0), (0.8, 0, 0), (0.4, 0, 0)] # color palette
     colors_palette = (sns.color_palette(colors)) # creating matplot color palette
     
     
@@ -3067,7 +3067,7 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     
     
     
-    legend_elements = [Patch(facecolor= (0.996, 0.89, 0.569), edgecolor = (0.996, 0.89, 0.569), label ='Early-industrial'), Patch(facecolor= (0.996, 0.769, 0.31), edgecolor = (0.996, 0.769, 0.31), label ='Present day'), Patch(facecolor= (0.996, 0.6, 0.001), edgecolor = (0.996, 0.6, 0.001), label ='RCP2.6'), Patch(facecolor= (0.851, 0.373, 0.0549), edgecolor = (0.851, 0.373, 0.0549), label ='RCP6.0'), Patch(facecolor= (0.6, 0.204, 0.016), edgecolor = (0.6, 0.204, 0.016), label ='RCP8.5')]
+    legend_elements = [Patch(facecolor= (0.2, 0.6, 1), edgecolor = (0.2, 0.6, 1), label ='Early-industrial'), Patch(facecolor= (0.2, 0.2, 0.6), edgecolor = (0.2, 0.2, 0.6), label ='Present day (+0.4\u00b0C)'), Patch(facecolor= (1, 0.6, 0), edgecolor = (1, 0.6, 0), label ='RCP2.6 (+1.8\u00b0C)'), Patch(facecolor= (0.8, 0, 0), edgecolor = (0.8, 0, 0), label ='RCP6.0 (+2.6\u00b0C)'), Patch(facecolor= (0.4, 0, 0), edgecolor = (0.4, 0, 0), label ='RCP8.5 (+3.7\u00b0C)')]
     fig.legend(handles = legend_elements, bbox_to_anchor = (0.90,0.88), fontsize = 10, frameon=False)
 
     
@@ -3081,4 +3081,148 @@ def comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_ye
     
     return all_compound_event_combinations_and_gcms_timeseries_50_years_of_joint_occurrence_of_compound_events
     
+
+#%% Function for calculating the total number of years per location that experienced extreme events. 
+def total_no_of_years_with_occurrence_of_extreme_event(occurrence_of_extreme_event):
     
+    """ Determine the total number of years throught the data period per location for which an extreme event was experienced
+    
+    Parameters
+    ----------
+    occurrence of compound extreme event : Xarray data array (boolean with true for locations with the occurrence of an extreme event within the same year)
+    
+    Returns
+    -------
+    Xarray with the total number of years throught the data period per location for which an extreme event was experienced   
+    """
+    
+    # Number of years per region that experienced compound events
+    total_no_of_years_with_occurrence_of_extreme_event = (occurrence_of_extreme_event).sum('time',skipna=False)
+   
+    return total_no_of_years_with_occurrence_of_extreme_event  
+
+
+#%% Function for plotting the box plot to compare the compaund events with all the output from the different GCMS driving the different impact models
+def comparison_boxplot_all_extreme_events(all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years):
+    '''
+    
+
+    Parameters
+    ----------
+    all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years : List of xarrays 
+
+    Returns
+    -------
+    Box plot.
+
+    '''
+    
+    fig = plt.figure(figsize = (9,5.5))
+    
+    outer_box = gridspec.GridSpec(1,1) # outer box (bounding) all the sub plots
+    outerax = fig.add_subplot(outer_box[0])
+    outerax.tick_params(axis='both', which='both', length = 0, bottom=0, left=0, labelbottom=0, labelleft=0)  
+    
+    graph = fig.add_gridspec(nrows = 1, ncols = 6, wspace = 0.3) # create sub plots, with no space in between hence wspace = 0
+    axes = graph.subplots(sharey =True) # to share the same y-axis
+    
+    
+    colors = [(0.2, 0.6, 1), (0.2, 0.2, 0.6), (1, 0.6, 0), (0.8, 0, 0), (0.4, 0, 0)] # color palette
+    colors_palette = (sns.color_palette(colors)) # creating matplot color palette
+    
+    
+    for i in range(len(all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years)):       
+        
+        #all_data_considering_all_gcms = [[]]*(len(all_compound_event_combinations_and_gcms_timeseries_50_years_of_joint_occurrence_of_compound_events[i][0][0]))
+        
+        all_data_considering_all_gcms = [[],[],[],[],[]]
+        for gcm in range(len(all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][0])):
+            gcm_data = all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][0][gcm]
+            for scenario in range(len(gcm_data)):
+                data_per_gcm = gcm_data[scenario]
+                all_data_considering_all_gcms[scenario].extend(data_per_gcm)
+                
+
+        
+        sns.set_palette(colors_palette)
+        sns.color_palette(palette = colors_palette)
+        plot = sns.boxplot(data = all_data_considering_all_gcms, ax = axes[i], showmeans = True, showfliers = False, width = 0.8, linewidth = 0.8, boxprops = {'linestyle': ' '}, meanprops = {'marker':"o", 'markerfacecolor': "yellow", "markeredgecolor": "black", 'markersize': "3.0"})
+        #plot.set(xlabel = '{} and {}'.format(all_compound_event_combinations_and_gcms_timeseries_50_years_of_joint_occurrence_of_compound_events[i][1], all_compound_event_combinations_and_gcms_timeseries_50_years_of_joint_occurrence_of_compound_events[i][2]))
+        #plot.set(ylim=(1)) # limit y axis to fraction of 0.6
+        
+        
+        # renaming event 1 with an acronym for plotting purposes
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] == 'floodedarea':
+            event_1_name = 'RF'
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] == 'driedarea':
+            event_1_name = 'DR'
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] == 'heatwavedarea':
+            event_1_name = 'HW'
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] == 'cropfailedarea':
+            event_1_name = 'CF'
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] =='burntarea':
+            event_1_name = 'WF'
+        if all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years[i][1] == 'tropicalcyclonedarea':
+            event_1_name ='TC'
+        
+      
+        
+        
+        plot.set_xlabel('       {} '.format(event_1_name), rotation = 315 , rotation_mode = 'anchor', labelpad = 0.0, loc = 'center', fontsize = 9)
+
+        
+        if 0<i<14:
+            axes[i].spines.left.set_visible(False) # To hide the lines
+            axes[i].spines.right.set_visible(False)
+            axes[i].tick_params(axis='y', which='both', length = 0)
+            
+            xticks = axes[i].xaxis.get_major_ticks()
+            xticks[0].set_visible(False)
+            xticks[1].set_visible(False)
+            xticks[3].set_visible(False)
+            xticks[4].set_visible(False)
+        
+        if i == 0:
+            axes[i].spines.right.set_visible(False)
+            
+            xticks = axes[i].xaxis.get_major_ticks()
+            xticks[0].set_visible(False)
+            xticks[1].set_visible(False)
+            xticks[3].set_visible(False)
+            xticks[4].set_visible(False)
+            
+        
+        if i == 14:
+            axes[i].spines.left.set_visible(False) # To hide the lines
+            axes[i].tick_params(axis='y', which='both', length = 0)
+            
+            xticks = axes[i].xaxis.get_major_ticks()
+            xticks[0].set_visible(False)
+            xticks[1].set_visible(False)
+            xticks[3].set_visible(False)
+            xticks[4].set_visible(False)
+        
+        
+    for ax in fig.get_axes():
+
+        ax.tick_params(bottom=True, labelbottom = False) # remove the x-axis labels
+        
+    for ax in axes.flat:
+        ax.set(ylabel = 'Percentage of area')
+        ax.label_outer() # avoid repetition of y axis label on all sub plots
+    
+    
+    
+    legend_elements = [Patch(facecolor= (0.2, 0.6, 1), edgecolor = (0.2, 0.6, 1), label ='Early-industrial'), Patch(facecolor= (0.2, 0.2, 0.6), edgecolor = (0.2, 0.2, 0.6), label ='Present day (+0.4\u00b0C)'), Patch(facecolor= (1, 0.6, 0), edgecolor = (1, 0.6, 0), label ='RCP2.6 (+1.8\u00b0C)'), Patch(facecolor= (0.8, 0, 0), edgecolor = (0.8, 0, 0), label ='RCP6.0 (+2.6\u00b0C)'), Patch(facecolor= (0.4, 0, 0), edgecolor = (0.4, 0, 0), label ='RCP8.5 (+3.7\u00b0C)')]
+    fig.legend(handles = legend_elements, bbox_to_anchor = (0.90,0.88), fontsize = 9, frameon=False)
+
+    
+    
+    #fig.suptitle('Variation in the fraction of region affected by compound events \n in 50-year periods demonstrated by multi-impact model ensembles \n', y = 1.05)
+    
+    # Change this directory to save the plots to your desired directory
+    #plt.savefig('C:/Users/dmuheki/OneDrive/PhD/Masters_thesis_paper/Ongoing_results/Variation in the fraction of region affected by all extreme events in 50-year periods demonstrated by multi-impact model ensembles.pdf', dpi = 300)
+    
+    plt.show()
+    
+    return all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years
