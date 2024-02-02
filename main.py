@@ -696,6 +696,107 @@ all_box_plots = fn.all_boxplots(all_compound_event_combinations_and_gcms_timeser
 new_box = fn.comparison_boxplot(all_compound_event_combinations_and_gcms_timeseries_50_years_of_joint_occurrence_of_compound_events)
 
 
+
+#%% FULL DATASETS FOR SINGLE EXTREME EVENT CATEGORIES
+
+######## calculate timeseries of affected area instead of just occurrence. See example in this code earlier on above
+all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years = []
+
+
+for extreme_event in extreme_event_categories:
+    
+    # All GCMs data on timeseries (50-year periods) of occurrence of extreme event for all scenarios
+    all_gcms_timeseries_50_years_of_occurrence_of_extreme_events = []
+    
+    
+    for gcm in gcms:
+        
+        timeseries_50_years_of_joint_occurrence_of_extreme_events = []
+        
+        #Impact models (with the same driving GCM)
+        extreme_event_impact_model = fn.impact_model(extreme_event, gcm)
+        
+        for scenario in scenarios_of_datasets:
+            
+            extreme_event_dataset = fn.extreme_event_occurrence(extreme_event, extreme_event_impact_model, scenario)
+            
+            if scenario == 'historical':
+                
+                ## EARLY INDUSTRIAL/ HISTORICAL / 50 YEARS / FROM 1861 UNTIL 1910
+                all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1861_until_1910 = []
+                
+                for impact_model_data in extreme_event_dataset[0]:
+                    
+                    extreme_event_from_1861_until_1910_unmasked =  impact_model_data[0:50] # (UNMASKED) occurrence of event considering one impact model 
+                    extreme_event_from_1861_until_1910 = xr.where(np.isnan(mask_for_historical_data[0:50]), np.nan, extreme_event_from_1861_until_1910_unmasked) # (MASKED) occurrence of events considering one impact model
+                    
+                    if len(impact_model_data) == 0:  # checking for an empty array representing no data
+                      print('No data available on occurrence of extreme event for selected impact model during the period '+ time_periods_of_datasets[0] + '\n')
+                    else:
+                        timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_1861_until_2005 = fn.timeseries_fraction_of_area_affected(extreme_event_from_1861_until_1910, entire_globe_grid_cell_areas_in_xarray)
+                        all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1861_until_1910.append(timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_1861_until_2005)
+                        
+                
+                
+                ## PRESENT DAY
+                all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1956_until_2005 = []
+                
+                for impact_model_data in extreme_event_dataset[0]:
+                    
+                    extreme_event_from_1956_until_2005_unmasked =  impact_model_data[95:] # (UNMASKED) occurrence of event considering one impact model 
+                    extreme_event_from_1956_until_2005 = xr.where(np.isnan(mask_for_historical_data[95:]), np.nan, extreme_event_from_1956_until_2005_unmasked) # (MASKED) occurrence of events considering one impact model
+                    
+                    if len(impact_model_data) == 0:  # checking for an empty array representing no data
+                      print('No data available on occurrence of extreme event for selected impact model during the period '+ time_periods_of_datasets[1] + '\n')
+                    else:
+                        timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_1956_until_2005 = fn.timeseries_fraction_of_area_affected(extreme_event_from_1956_until_2005, entire_globe_grid_cell_areas_in_xarray)
+                        all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1956_until_2005.append(timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_1956_until_2005)
+                        
+                 
+                
+                # FRACTION OF THE AREA AFFECTED BY EXTREME EVENT ACROSS THE 50 YEAR TIME SCALE IN SCENARIO
+                # AREA AFFECTED BY EXTREME EVENT FROM 1861 UNTIL 1910 IN SCENARIO
+                timeseries_50_years_of_joint_occurrence_of_extreme_events.append(all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1861_until_1910)
+                # AREA AFFECTED BY EXTREME EVENT FROM 1956 UNTIL 2005 IN SCENARIO
+                timeseries_50_years_of_joint_occurrence_of_extreme_events.append(all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_1956_until_2005)
+            
+                
+            else:
+                # Note: cropfailure events have no data for the rcp85 scenario: thus will be igonored in the rcp 85 scenario
+                
+                # END OF CENTURY / 50 YEARS / 2050 UNTIL 2099
+                
+                all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_2050_until_2099 = []
+                
+                for impact_model_data in extreme_event_dataset[1]:
+                    
+                    extreme_event_from_2050_until_2099_unmasked =  impact_model_data[44:] # (UNMASKED) occurrence of event considering one impact model 
+                    extreme_event_from_2050_until_2099 = xr.where(np.isnan(mask_for_projected_data[44:]), np.nan, extreme_event_from_2050_until_2099_unmasked) # (MASKED) occurrence of events considering one impact model
+                    
+                    if len(impact_model_data) == 0:  # checking for an empty array representing no data
+                      print('No data available on occurrence of extreme event for selected impact model during the period '+ time_periods_of_datasets[2] + '\n')
+                    else:
+                        timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_2050_until_2099 = fn.timeseries_fraction_of_area_affected(extreme_event_from_2050_until_2099, entire_globe_grid_cell_areas_in_xarray)
+                        all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_2050_until_2099.append(timeseries_of_fraction_of_area_with_occurrence_of_extreme_events_from_2050_until_2099)
+                        
+                # FRACTION OF THE AREA AFFECTED BY EXTREME EVENT ACROSS THE 50 YEAR TIME SCALE IN SCENARIO
+                # AREA AFFECTED BY EXTREME EVENT FROM 2050 UNTIL 2099 IN SCENARIO
+                timeseries_50_years_of_joint_occurrence_of_extreme_events.append(all_impact_model_data_timeseries_of_occurrence_of_extreme_events_from_2050_until_2099)
+                
+                
+
+        # Append all 4 GCMS (50-year) timeseries of compound events
+        all_gcms_timeseries_50_years_of_occurrence_of_extreme_events.append(timeseries_50_years_of_joint_occurrence_of_extreme_events)
+
+    # Append to list with all extreme events        
+    all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years.append([all_gcms_timeseries_50_years_of_occurrence_of_extreme_events, extreme_event])    
+
+    
+#considering all impact models and all their driving GCMs per extreme event  
+box_plot_for_all_extreme_events = fn.comparison_boxplot_all_extreme_events(all_extreme_events_occurrence_considering_impact_and_gcms_timeseries_50_years)
+
+
+
 # print total runtime of the code
 end_time=datetime.now()
 print('Processing duration: {}'.format(end_time - start_time))
